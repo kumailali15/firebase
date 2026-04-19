@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>firebase</title>
+</head>
+
+<body>
+    <h1>FIREBASE</h1>
+    <!--Signup-->
+    <h1>Sign up</h1>
+    <input type="email" placeholder="Enter Email" id="semail">
+    <input type="password" placeholder="Enter Password" id="spassword">
+    <button id="signupbtn">Signup</button>
+    <br>
+    <!--Login-->
+    <h1>Login</h1>
+    <input type="email" placeholder="Enter Email" id="lemail">
+    <input type="password" placeholder="Enter Password" id="lpassword">
+    <button id="loginbtn">login</button>
+    <br>
+    <!--Logout-->
+    <h1>Logout</h1>
+    <button id="logoutbtn">Logout</button>
+    <h2 id="text"></h2>
+    <!--Continue with Google-->
+    <button class="google-btn" id="google">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" >
+  Continue with Google
+</button>
+    <!--OTP Verification-->
+    <h1>OTP Verification</h1>
+    <input type="number" placeholder="Enter Number" id="phoneNum">
+    <button id="sendOTPbtn">Send OTP</button>
+    <br>
+    <input type="text" placeholder="Enter Code" id="OTPverify">
+    <button id="OTPverifybtn">Verify</button>
+    <!--Recaptcha Container-->
+    <div id="recaptcha-container"></div>
+    <!--ADD DOC-->
+    <h1>
+        QUOTATION
+    </h1>
+    <input type="text" placeholder="Enter Your Quote" id="QuoteInput">
+    <button id="Addbtn">Add Quote</button>
+    <ul id="quotelist"></ul>
+    <script src="./js/app.js" type="module"></script>
+</body>
+
+</html>
