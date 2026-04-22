@@ -48,83 +48,98 @@ onAuthStateChanged(auth, (user) => {
 function signup() {
     var semail = document.getElementById("semail").value
     var spassword = document.getElementById("spassword").value
+
     createUserWithEmailAndPassword(auth, semail, spassword)
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log(user)
-            text.innerText = user.email
+            text.innerText = user.email;
+
+            showAlert("Signup successful 🎉", "success");
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode)
-            console.log(errorMessage)
+            showAlert("Signup failed ❌ " + error.message, "error");
         });
 }
 //loginFunction
 function login() {
     var lemail = document.getElementById("lemail").value
     var lpassword = document.getElementById("lpassword").value
+
     signInWithEmailAndPassword(auth, lemail, lpassword)
         .then((userCredential) => {
             const user = userCredential.user;
-            console.log(user)
-            text.innerText = user.email
-            text.style.color = "green"
+            text.innerText = user.email;
+            text.style.color = "green";
+
+            showAlert("Login successful 🔥", "success");
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode)
-            console.log(errorMessage)
-            text.innerText = errorCode
-            text.style.color = "red"
+            text.innerText = error.code;
+            text.style.color = "red";
+
+            showAlert("Login failed ❌ " + error.message, "error");
         });
 }
 //logoutFunction
 function logout() {
-    signOut(auth).then(() => {
-        console.log("logout successfully")
-        text.innerText = ""
-    }).catch((error) => {
-        console.log(error)
-    });
+    signOut(auth)
+        .then(() => {
+            text.innerText = "";
+            showAlert("Logout successful 👋", "success");
+        })
+        .catch((error) => {
+            showAlert("Logout failed ❌ " + error.message, "error");
+        });
 }
-const provider = new GoogleAuthProvider();
 //continue with google
+const provider = new GoogleAuthProvider();
+
 function ContinueWithGoogle() {
     signInWithPopup(auth, provider)
         .then((result) => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
+            showAlert("Google login successful 🚀", "success");
             console.log("user", user)
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             const email = error.customData.email;
             const credential = GoogleAuthProvider.credentialFromError(error);
+            showAlert("Google login failed ❌ " + error.message, "error");
         });
 }
 //Phone OTP Verification
 function sendOTP() {
     window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        'size': 'normal',
-        'callback': (response) => {
-            console.log(response)
-        },
-        'expired-callback': () => {
-
-        }
+        size: 'normal'
     });
-    const phoneNumber = document.getElementById("phoneNum").value
+
+    const phoneNumber = document.getElementById("phoneNum").value;
     const appVerifier = window.recaptchaVerifier;
+
     signInWithPhoneNumber(auth, phoneNumber, appVerifier)
         .then((confirmationResult) => {
-
             window.confirmationResult = confirmationResult;
-        }).catch((error) => {});
+
+            showAlert("OTP sent 📩", "success");
+        })
+        .catch((error) => {
+            showAlert("OTP failed ❌ " + error.message, "error");
+        });
 }
+//OTP verify
+document.getElementById("OTPverifybtn").addEventListener("click", async() => {
+    const code = document.getElementById("OTPverify").value;
+
+    try {
+        await window.confirmationResult.confirm(code);
+        showAlert("Phone verified ✅", "success");
+    } catch (error) {
+        showAlert("Invalid OTP ❌", "error");
+    }
+});
 //Firestore Database
 //crud (create,read,update,delete)
 import {
@@ -171,12 +186,20 @@ async function AddData() {
     function QuoteInp() {}
 
     async function Addbtn() {
-        await addDoc((quotecollection), { //jaisa setDoc mai Doc ata hai waisa hi AddDoc mai pura Collection ata hai.
+        await addDoc((quotecollection), {
             qoute: QuoteInput.value,
             time: serverTimestamp()
         });
-        getQoute()
-    }
+
+        // ✅ input clear
+        QuoteInput.value = "";
+
+        // ✅ fancy alert call
+        showAlert("Quote added successfully ✅");
+
+        getQoute();
+    } //jaisa setDoc mai Doc ata hai waisa hi AddDoc mai pura Collection ata hai.
+
 
     async function getQoute() {
         quotelist.innerHTML = ""
@@ -226,3 +249,17 @@ async function AddData() {
 }
 
 AddData()
+
+function showAlert(message, type = "success") {
+    const alertBox = document.getElementById("alertBox");
+    alertBox.innerText = message;
+
+    alertBox.className = "alert show " + type;
+
+    setTimeout(() => {
+        alertBox.className = "alert";
+    }, 3000);
+}
+
+showAlert("Login successful 🔥");
+showAlert("Login failed ❌");

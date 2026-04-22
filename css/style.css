@@ -1,3 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
 .google-btn {
     display: flex;
     align-items: center;
@@ -27,4 +43,149 @@
 
 .google-btn:active {
     transform: scale(0.98);
+}
+
+h1 {
+    margin: 15px 0 5px;
+    color: #38bdf8;
+}
+
+h2 {
+    margin-top: 10px;
+}
+
+input {
+    width: 260px;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: #1e293b;
+    color: white;
+    border: 1px solid #334155;
+}
+
+input::placeholder {
+    color: #94a3b8;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px 0 15px;
+    border: none;
+    border-radius: 8px;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #0ea5e9;
+    transform: scale(1.05);
+}
+
+.google-btn {
+    background: white;
+    color: black;
+    width: 260px;
+}
+
+.google-btn:hover {
+    background: #f1f5f9;
+}
+
+#quotelist {
+    list-style: none;
+    margin-top: 10px;
+    width: 300px;
+}
+
+#quotelist li {
+    background: #1e293b;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#quotelist button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+#recaptcha-container {
+    margin: 10px 0;
+}
+
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #22c55e;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: 0.3s ease;
+    z-index: 1000;
+}
+
+.alert.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    input,
+    button,
+    .google-btn {
+        width: 100%;
+    }
+    #quotelist {
+        width: 100%;
+    }
+    h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+    h2 {
+        font-size: 16px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    input,
+    button,
+    .google-btn {
+        width: 90%;
+    }
+    #quotelist {
+        width: 90%;
+    }
+    body {
+        align-items: center;
+    }
+}
+
+@media (max-width: 1024px) {
+    input,
+    button,
+    .google-btn {
+        width: 80%;
+    }
+    #quotelist {
+        width: 80%;
+    }
 }
